@@ -12,5 +12,7 @@
             "name": "exl"
         }
     ],
-    "require": {}
+    "require": {
+        "symfony/console": "^6.3"
+    }
 }
