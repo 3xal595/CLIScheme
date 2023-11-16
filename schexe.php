@@ -10,6 +10,7 @@ use Symfony\Component\Console\Application;
 $application = new Application();
 
 // Add your command to the application
+$application->setDefaultCommand('hellow');
 $application->add(new \exl\read()); // Adjust the namespace as needed
 $application->add(new \exl\hellow()); // Adjust the namespace as needed
 
