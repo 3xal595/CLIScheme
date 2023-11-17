@@ -1,6 +1,6 @@
 <?php
 
-namespace exl; // Adjust the namespace as needed
+namespace exl\schexe\src; // Adjust the namespace as needed
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -8,10 +8,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Question\Question;
+use exl\schexe\src\Functions;
 
-
-
-require_once 'functions.php';
 
 class hellow extends Command
 {
@@ -23,7 +21,7 @@ class hellow extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('<question>'.someFont().'</question>');
+        $output->writeln('<question>'.Functions::someFont().'</question>');
        
         $output->writeln('
         
@@ -63,7 +61,7 @@ class read extends Command
 
         $schemecode = $helper->ask($input, $output, $question);
         
-        $result = schemeInterp($schemecode);
+        $result = (new Functions)->schemeInterp($schemecode);
 
         //debut de la progress bar
         $progressBar = new ProgressBar($output, 50);

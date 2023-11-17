@@ -1,5 +1,9 @@
 <?php
-    function someFont($value = 1000) {
+    namespace exl\schexe\src;
+
+
+    class Functions {
+    public static function someFont($value = 1000) {
         $Graffiti='
                                   __________________________________________________________________________________________
 
@@ -20,7 +24,7 @@
       return $Graffiti;
     }
 
-    function schemeInterp($code)
+    public function schemeInterp($code)
     {
         // Very basic interpreter for arithmetic expressions
         $code = trim($code);
@@ -32,43 +36,53 @@
         }
 
         // Evaluate basic arithmetic expressions
-        $result = evaluateArithmeticExpression($tokens);
+        $result = $this->evaluateArithmeticExpression($tokens);
 
         return $result;
     }
 
-    function evaluateArithmeticExpression($tokens)
+    public function evaluateArithmeticExpression($tokens)
     {
+        //voir le contenus
+        print_r($tokens);
+
         $operator = array_shift($tokens);
 
-        // Check if the operator is valid
-        if (!in_array($operator, ['+', '-', '*', '/'])) {
-            throw new \RuntimeException('Invalid operator: ' . $operator);
-        }
-
-        // Check if there are enough operands
-        if (count($tokens) < 2) {
-            throw new \RuntimeException('Insufficient operands for ' . $operator);
-        }
-
-        $operand1 = array_shift($tokens);
-        $operand2 = array_shift($tokens);
+        //voir le contenus
+        print_r($tokens);
+        
+        
 
         // Perform the arithmetic operation
-        switch ($operator) {
-            case '+':
-                return $operand1 + $operand2;
-            case '-':
-                return $operand1 - $operand2;
-            case '*':
-                return $operand1 * $operand2;
-            case '/':
-                if ($operand2 == 0) {
-                    throw new \RuntimeException('Le diviseur est égal à zero ');
-                }
-                return $operand1 / $operand2;
-            default:
-                throw new \RuntimeException('Erreur inattendue, merci de le reporter à : Va te faire foutre.');
+        $result = 0 ;
+        for($i = 0; $i < count($tokens); $i++) {
+            switch ($operator) {
+                case '+':
+                    $result += $tokens[$i];
+                    break;
+                case '-':
+                    $result -= $tokens[$i];
+                    break;
+                case '*':
+                    $result *= $tokens[$i];
+                    break;
+                case '/':
+                    if ($result == 0){
+                        $result = $tokens[$i];
+                        break;
+                    }
+                    else{
+                        if ($tokens[$i] == 0) {
+                            throw new \RuntimeException('Le diviseur est égal à zero ');
+                        }
+                        $result /= $tokens[$i];
+                        break;
+                    }
+                default:
+                    throw new \RuntimeException("Désolé, l'opérateur". $operator."n'est pas encore pris en compte");
+            }
         }
+        return $result;
     }
+}
 ?>
