@@ -3,7 +3,12 @@
 
 
     class Functions {
-    public static function someFont($value = 1000) {
+        /**
+         * Generates a stylized font pattern.
+         *
+         * @return string The generated font pattern.
+         */
+        public static function someFont() {
         $Graffiti='
                                   __________________________________________________________________________________________
 
@@ -24,6 +29,13 @@
       return $Graffiti;
     }
 
+    /**
+     * Basic interpreter for arithmetic expressions.
+     *
+     * @param string $code The arithmetic expression to interpret.
+     * @return mixed The result of the arithmetic expression.
+     * @throws \RuntimeException If the expression is empty.
+     */
     public function schemeInterp($code)
     {
         // Very basic interpreter for arithmetic expressions
@@ -36,26 +48,39 @@
         }
 
         // Evaluate basic arithmetic expressions
-        $result = $this->evaluateArithmeticExpression($tokens);
+        $result = $this->calculation($tokens);
 
         return $result;
     }
 
-    public function evaluateArithmeticExpression($tokens)
-    {
-        //voir le contenus
-        print_r($tokens);
+
+     /**
+     * Placeholder for future evaluation functionality.
+     *
+     * @param string $code The code to be evaluated.
+     */
+    public function evaluate(string $code) {
+        // TODO: Implement evaluation functionality
+    }
+
+
+    /**
+     * Performs arithmetic operations based on the provided tokens.
+     *
+     * @param array $tokens The array of tokens representing the expression.
+     * @return float|int The result of the arithmetic expression.
+     * @throws \RuntimeException If an invalid operator is encountered.
+     */
+    public function calculation($tokens) {
+        print_r($tokens); // Display the contents of tokens
 
         $operator = array_shift($tokens);
+        print_r($tokens); // Display the updated contents of tokens after shifting the operator
 
-        //voir le contenus
-        print_r($tokens);
-        
-        
+        $result = 0;
 
-        // Perform the arithmetic operation
-        $result = 0 ;
-        for($i = 0; $i < count($tokens); $i++) {
+        // Iterate through the tokens and perform the arithmetic operation
+        for ($i = 0; $i < count($tokens); $i++) {
             switch ($operator) {
                 case '+':
                     $result += $tokens[$i];
@@ -67,11 +92,10 @@
                     $result *= $tokens[$i];
                     break;
                 case '/':
-                    if ($result == 0){
+                    if ($result == 0) {
                         $result = $tokens[$i];
                         break;
-                    }
-                    else{
+                    } else {
                         if ($tokens[$i] == 0) {
                             throw new \RuntimeException('Le diviseur est égal à zero ');
                         }
@@ -79,9 +103,10 @@
                         break;
                     }
                 default:
-                    throw new \RuntimeException("Désolé, l'opérateur". $operator."n'est pas encore pris en compte");
+                    throw new \RuntimeException("Désolé, l'opérateur " . $operator . " n'est pas encore pris en compte");
             }
         }
+
         return $result;
     }
 }
